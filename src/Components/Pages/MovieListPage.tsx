@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, List, ListItem, ListItemText } from '@mui/material';
+import { Box, Button, List, ListItem, ListItemText } from '@mui/material';
 import { getMovies, deleteMovie } from '../../Services/movieService';
 import type { Movie } from '../../Services/movieService';
 
@@ -18,6 +18,8 @@ const MovieListPage = () => {
     };
 
     return (
+    <Box>
+        <Button onClick={() => navigate('/movies/create')}>Neu erstellen</Button>
         <List>
             {movies.map(movie => (
                 <ListItem key={movie.id}>
@@ -27,7 +29,8 @@ const MovieListPage = () => {
                 </ListItem>
             ))}
         </List>
-    );
+    </Box>
+);
 };
 
 export default MovieListPage;
