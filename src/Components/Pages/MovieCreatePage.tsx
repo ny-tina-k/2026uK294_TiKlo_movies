@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, TextField, Box, Typography } from '@mui/material';
+import { Box, Button, Paper, Stack, Typography } from '@mui/material';
 import { createMovie } from '../../Services/movieService';
+import MovieForm from '../Molecules/MovieForm';
 
 const MovieCreatePage = () => {
     const [title, setTitle] = useState('');
@@ -14,22 +15,24 @@ const MovieCreatePage = () => {
     };
 
     return (
-        <Box>
-            <Typography variant="h5">Film erstellen</Typography>
-            <TextField
-                name="title"
-                label="Titel"
-                value={title}
-                onChange={e => setTitle(e.target.value)}
-            />
-            <TextField
-                name="releaseDate"
-                label="Release Date"
-                value={releaseDate}
-                onChange={e => setReleaseDate(e.target.value)}
-            />
-            <Button onClick={handleSubmit}>Erstellen</Button>
-            <Button onClick={() => navigate('/movies')}>Abbrechen</Button>
+        <Box sx={{ maxWidth: 600, mx: 'auto', mt: 4, px: 2 }}>
+            <Paper sx={{ p: 4 }}>
+                <Typography variant="h5" component="h5" sx={{ mb: 3 }}>
+                    Film erstellen
+                </Typography>
+                <Stack spacing={2}>
+                    <MovieForm
+                        title={title}
+                        releaseDate={releaseDate}
+                        onTitleChange={setTitle}
+                        onReleaseDateChange={setReleaseDate}
+                    />
+                    <Stack direction="row" spacing={2}>
+                        <Button variant="contained" onClick={handleSubmit}>Erstellen</Button>
+                        <Button variant="outlined" onClick={() => navigate('/movies')}>Abbrechen</Button>
+                    </Stack>
+                </Stack>
+            </Paper>
         </Box>
     );
 };

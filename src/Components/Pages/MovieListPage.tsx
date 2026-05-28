@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Button, List, ListItem, ListItemText } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { getMovies, deleteMovie } from '../../Services/movieService';
 import type { Movie } from '../../Services/movieService';
+import MovieList from '../Organisms/MovieList';
 
 const MovieListPage = () => {
     const [movies, setMovies] = useState<Movie[]>([]);
@@ -18,19 +19,18 @@ const MovieListPage = () => {
     };
 
     return (
-    <Box>
-        <Button onClick={() => navigate('/movies/create')}>Neu erstellen</Button>
-        <List>
-            {movies.map(movie => (
-                <ListItem key={movie.id}>
-                    <ListItemText primary={movie.title} secondary={movie.releaseDate} />
-                    <Button onClick={() => navigate(`/movies/${movie.id}`)}>Detail</Button>
-                    <Button onClick={() => handleDelete(movie.id)}>Delete</Button>
-                </ListItem>
-            ))}
-        </List>
-    </Box>
-);
+        <Box sx={{ maxWidth: 800, mx: 'auto', mt: 4, px: 2 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+                <Typography variant="h4">Movies</Typography>
+                <Button variant="contained" onClick={() => navigate('/movies/create')}>Neu erstellen</Button>
+            </Box>
+            <MovieList
+                movies={movies}
+                onDetail={(movieId: any) => navigate(`/movies/${movieId}`)}
+                onDelete={handleDelete}
+            />
+        </Box>
+    );
 };
 
 export default MovieListPage;
